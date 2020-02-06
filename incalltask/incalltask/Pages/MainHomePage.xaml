@@ -1,0 +1,488 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:incalltask.Controls"
+             mc:Ignorable="d"
+             x:Class="incalltask.Pages.MainHomePage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="1"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid RowSpacing="0"
+                  Grid.Row="0"
+                  BackgroundColor="{StaticResource blue}">
+
+
+                <StackLayout Orientation="Vertical"
+                              HorizontalOptions="StartAndExpand"                     
+                             Margin="10">
+                    <Image  Source="incalltext"
+                        WidthRequest="126"
+                        HeightRequest="22"/>
+                    <Label 
+                       TextColor="White"
+                       FontSize="15"
+                       >
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Extension : "/>
+                                <Span Text="{Binding Extension}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">HelveticaNeue</On>
+                                <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label Text="{Binding UserStatus}"
+                       TextColor="White"
+                       FontSize="13"
+                    >
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <On Platform="iOS">HelveticaNeue</On>
+                                <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenPopUpCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                            
+                             HorizontalOptions="EndAndExpand">
+                    <Image Source="logout"
+                           HeightRequest="26"
+                           WidthRequest="26"
+                           >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LogoutCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="settings"
+                           HeightRequest="6"
+                           WidthRequest="6"
+                           Margin="10,0,10,0"
+                           />
+                </StackLayout>
+
+            </Grid>
+            <Grid Grid.Row="1"
+               Margin="20,140,20,0"
+                 
+                  RowSpacing="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="0.6*"/>
+                </Grid.ColumnDefinitions>
+                <Frame  CornerRadius="5"
+                        HeightRequest="20"
+                Grid.Column="0"
+                        Grid.Row="0"
+                x:Name="framestack"
+                BorderColor="{StaticResource lightgrey}" 
+                BackgroundColor="White"
+                HasShadow="False"
+                Padding="0"
+                Margin="5,5,5,5">
+                    <StackLayout Spacing="0" 
+                     Padding="5,0,5,0" 
+                  HeightRequest="20"
+                     >
+                        <Grid    
+                           
+                             Padding="0"
+                             VerticalOptions="StartAndExpand"
+                             HorizontalOptions="FillAndExpand"
+                          RowSpacing="0"                   
+                          >
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="0.4*"/>
+                                <ColumnDefinition Width="2"/>
+                                <ColumnDefinition Width="0.2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="flag"
+                                   HeightRequest="60"
+                                   WidthRequest="50"
+                                   Grid.Column="0"
+                                   Margin="5"/>
+                            <Label Text="966" 
+                               Grid.Column="1"  
+                                  VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="StartAndExpand"
+                               TextColor="{StaticResource lightgrey2}"
+                               WidthRequest="200"
+                               HeightRequest="20"
+                           
+                               VerticalTextAlignment="Center"
+                               FontSize="16">
+                                <Label.FontFamily>
+                                    <OnPlatform x:TypeArguments="x:String">
+                                        <On Platform="iOS">HelveticaNeue</On>
+                                        <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                                    </OnPlatform>
+                                </Label.FontFamily>
+                            </Label>
+                            <BoxView WidthRequest="1"
+                                 HeightRequest="30"
+                                   
+                                 BackgroundColor="{StaticResource lightgrey}"
+                                 Grid.Column="2"/>
+                            <Image     x:Name="headerImage"
+                             Source="droparrow"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               HeightRequest="25"
+                               WidthRequest="25"
+                               Grid.Column="3"/>
+                            <!--<Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                            </Grid.GestureRecognizers>-->
+
+                        </Grid>
+
+                        <!--<controls:RepeaterView 
+                    x:Name="BottomStack" 
+                  
+                    IsVisible="False" 
+                    ItemsSource="{Binding ListSource,Source={x:Reference RootItem}}"
+                    HorizontalOptions="FillAndExpand">
+                            <controls:RepeaterView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+
+                                        <StackLayout  x:Name="name"   
+                                          Spacing="0"
+                                             HorizontalOptions="FillAndExpand"
+                                              Orientation="Vertical"
+                                                 VerticalOptions="Center">
+                                            <BoxView HeightRequest="1"
+                                         HorizontalOptions="FillAndExpand"
+                                                 BackgroundColor="{StaticResource lightgrey}"
+                                                />
+                                            <Label  Text="{Binding Name}"   
+                                        HeightRequest="50"
+                                            HorizontalTextAlignment="Start"
+                                            VerticalTextAlignment="Center"
+                                            VerticalOptions="Center"
+                                            TextColor="{StaticResource lightgrey2}"
+                                            FontSize="16" />
+
+                                        </StackLayout>
+
+                                    </ViewCell>
+                                </DataTemplate>
+                            </controls:RepeaterView.ItemTemplate>
+                        </controls:RepeaterView>-->
+                    </StackLayout>
+                </Frame>
+                <Label Grid.Column="1"
+                       FontSize="17"
+                        Grid.RowSpan="2"
+                          Text="{Binding CallTo}"
+                        
+                            HorizontalOptions="Start"          
+                          VerticalOptions="Center"
+                            
+                       TextColor="{StaticResource darkgrey}">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+
+            </Grid>
+            <BoxView HeightRequest="1"
+                         BackgroundColor="{StaticResource lightgrey}"
+                         Grid.Row="2"
+                         Margin="0"
+                         />
+            <Grid Grid.Row="3"
+                  Padding="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                    <RowDefinition Height="0.2*"/>
+                </Grid.RowDefinitions>
+                
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="1"/>
+                    </Label.GestureRecognizers>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.FormattedText>
+                            <FormattedString>
+                                <Span  Text="1" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+                                <Span Text="" TextColor="{StaticResource lightgrey2}"  FontSize="13"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                <Label Grid.Row="0"
+                           Grid.Column="1"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="2"/>
+                    </Label.GestureRecognizers>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="2" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+                            <Span Text="ABC" TextColor="{StaticResource lightgrey2}"  FontSize="13"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="0"
+                           Grid.Column="2"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="3"/>
+                    </Label.GestureRecognizers>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="3" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+                            <Span Text="DEF" TextColor="{StaticResource lightgrey2}"  FontSize="13"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="4"/>
+                    </Label.GestureRecognizers>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="4" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+                            <Span Text="GHI" TextColor="{StaticResource lightgrey2}"  FontSize="13"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="1"
+                           Grid.Column="1"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="5"/>
+                    </Label.GestureRecognizers>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="5" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+                            <Span Text="JKL" TextColor="{StaticResource lightgrey2}"  FontSize="13"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="1"
+                           Grid.Column="2"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="6"/>
+                    </Label.GestureRecognizers>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="6" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+                            <Span Text="MNO" TextColor="{StaticResource lightgrey2}"  FontSize="13"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="2"
+                           Grid.Column="0"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="7"/>
+                    </Label.GestureRecognizers>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="7" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+                            <Span Text="PQRS" TextColor="{StaticResource lightgrey2}"  FontSize="13"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="2"
+                           Grid.Column="1"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="8"/>
+                    </Label.GestureRecognizers>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="8" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+                            <Span Text="TUV" TextColor="{StaticResource lightgrey2}"  FontSize="13"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="2"
+                           Grid.Column="2"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="9"/>
+                    </Label.GestureRecognizers>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="9" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+                            <Span Text="WXYZ" TextColor="{StaticResource lightgrey2}"  FontSize="13"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="3"
+                           Grid.Column="0"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="*"/>
+                    </Label.GestureRecognizers>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="*" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+                            
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="3"
+                           Grid.Column="1"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="0"/>
+                    </Label.GestureRecognizers>
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="0" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Row="3"
+                           Grid.Column="2"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding NumPadCommand}" CommandParameter="#"/>
+                    </Label.GestureRecognizers>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span  Text="#" TextColor="{StaticResource darkgrey}" FontSize="25"/>
+
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Image Grid.Row="4"
+                      Grid.Column="1" 
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       Source="bluephone"
+                       >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CallCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Grid.Row="4"
+                    Grid.Column="2"
+                      HeightRequest="2"
+                       WidthRequest="2"
+                       Margin="10"
+                       Source="phoneclose"
+                       />
+                
+            </Grid>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

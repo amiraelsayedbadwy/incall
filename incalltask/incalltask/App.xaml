@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="incalltask.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="lightgrey" x:FactoryMethod="FromHex">
+                <x:Arguments>
+                    <x:String>#CECECE</x:String>
+                </x:Arguments>
+            </Color>
+            <Color x:Key="lightgrey2" x:FactoryMethod="FromHex">
+                <x:Arguments>
+                    <x:String>#9C9C9C</x:String>
+                </x:Arguments>
+            </Color>
+            <Color x:Key="lightgrey3" x:FactoryMethod="FromHex">
+                <x:Arguments>
+                    <x:String>#E8E8E8</x:String>
+                </x:Arguments>
+            </Color>
+            <Color x:Key="blue" x:FactoryMethod="FromHex">
+                <x:Arguments>
+                    <x:String>#058ED0</x:String>
+                </x:Arguments>
+            </Color>
+            <Color x:Key="darkgrey" x:FactoryMethod="FromHex">
+                <x:Arguments>
+                    <x:String>#565656</x:String>
+                </x:Arguments>
+            </Color>
+            <Color x:Key="Lightrey4" x:FactoryMethod="FromHex">
+                <x:Arguments>
+                    <x:String>#F9F9F9</x:String>
+                </x:Arguments>
+            </Color>
+            <Color x:Key="Lightrey5" x:FactoryMethod="FromHex">
+                <x:Arguments>
+                    <x:String>#0000001F</x:String>
+                </x:Arguments>
+            </Color>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

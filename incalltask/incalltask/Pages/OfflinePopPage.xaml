@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage
+    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+    BackgroundColor="Transparent"
+    Opacity="8"
+     CloseWhenBackgroundIsClicked="True"  
+             x:Class="incalltask.Pages.OfflinePopPage">
+    <ContentPage.Content>
+        <Frame BackgroundColor="White"
+               BorderColor="{StaticResource lightgrey}"
+               CornerRadius="15"
+               HeightRequest="147"
+               WidthRequest="237"
+               Margin="20,0,20,0"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+            <StackLayout Orientation="Vertical">
+                <Image Source="close"
+                       HeightRequest="15"
+                       WidthRequest="15"
+                       HorizontalOptions="Start">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ClosePopUpCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label  Text="You're offline"
+                       HorizontalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                      
+                         TextColor="{StaticResource darkgrey}"
+                       FontSize="16">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label  
+                       HorizontalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                      
+                         Text="Please contact your representative:"
+                        TextColor="{StaticResource lightgrey2}"
+                       FontSize="13">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label  
+                       HorizontalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                      
+                       Text="https://support.glocomsystems.com"
+                    TextColor="{StaticResource blue}" 
+                       FontSize="13">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+
+                <Button 
+                    Margin="10,10,10,25"
+                    Text="Ok"
+                    TextColor="White"
+                    FontSize="16"
+                  Command="{Binding OkCommand}"
+                    CornerRadius="8"
+                    BackgroundColor="{StaticResource blue}"
+                   >
+                    <Button.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</popup:PopupPage>

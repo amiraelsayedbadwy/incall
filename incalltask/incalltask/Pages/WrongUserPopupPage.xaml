@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage
+    xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+      BackgroundColor="Transparent"
+    Opacity="8"
+     CloseWhenBackgroundIsClicked="True" 
+             x:Class="incalltask.Pages.WrongUserPopupPage">
+    <ContentPage.Content>
+        <Frame BackgroundColor="White"
+               BorderColor="{StaticResource lightgrey}"
+               CornerRadius="15"
+               HeightRequest="147"
+               WidthRequest="237"
+               Margin="20,0,20,0"
+               HorizontalOptions="Center"
+               VerticalOptions="Center">
+            <StackLayout Orientation="Vertical" Margin="0,10,0,0">
+
+                <Label  Text="Wrong credentials"
+                       HorizontalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                      
+                         TextColor="{StaticResource darkgrey}"
+                       FontSize="16">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+                <Label  
+                       HorizontalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                      
+                         Text="{Binding wrongmessage}"
+                        TextColor="{StaticResource darkgrey}"
+                       FontSize="13">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+               
+
+                <Button 
+                    Margin="10,10,10,25"
+                    Text="Ok"
+                    TextColor="White"
+                    FontSize="16"
+                  Command="{Binding OkCommand}"
+                    CornerRadius="8"
+                    BackgroundColor="{StaticResource blue}"
+                   >
+                    <Button.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</popup:PopupPage>

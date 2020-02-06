@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:rounded="clr-namespace:incalltask.Controls"
+             mc:Ignorable="d"
+           
+             x:Class="incalltask.Pages.LoginPage">
+    <ContentPage.Content>
+        <Grid RowSpacing="0" BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.6*"/>
+            </Grid.RowDefinitions>
+            <Image Source="innocallscoloredno"
+                   Grid.Row="0"
+                   HeightRequest="200"
+                   WidthRequest="220"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Margin="0,50,0,0"
+                   />
+            <StackLayout 
+                         Grid.Row="1"
+                         Margin="43,25,43,0">
+                <rounded:DropDownMenuControl
+                    ListSource="{Binding LanguageList.DropMenuList}"
+                    />
+
+                <rounded:RoundedEntry BorderRadius="6"
+                                      HeightRequest="50"
+                                         BorderColor="{StaticResource lightgrey}"
+                                         BorderThickness="2"
+                                      PlaceholderColor="{StaticResource lightgrey3}"
+                                      Placeholder="Enter user user name"
+                                      FontSize="16"
+                                      Text="{Binding Email}"
+                                      TextColor="{StaticResource lightgrey}"
+                                         Margin="0,5,0,0">
+                    <rounded:RoundedEntry.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </rounded:RoundedEntry.FontFamily>
+
+                </rounded:RoundedEntry>
+                <rounded:RoundedEntry BorderRadius="6"
+                                      HeightRequest="50"
+                                      Text="{Binding Password}"
+                                         BorderColor="{StaticResource lightgrey}"
+                                         BorderThickness="2"
+                                      PlaceholderColor="{StaticResource lightgrey3}"
+                                      Placeholder="Enter password"
+                                      FontSize="16"
+                                      IsPassword="True"
+                                      TextColor="{StaticResource lightgrey}"
+                                         Margin="0,5,0,0">
+                    <rounded:RoundedEntry.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </rounded:RoundedEntry.FontFamily>
+
+                </rounded:RoundedEntry>
+                <Button CornerRadius="6"
+                        BackgroundColor="{StaticResource blue}"
+                        Margin="0,25,0,5"
+                        Text="Login"
+                        FontSize="20"
+                        TextColor="White"
+                        Command="{Binding LoginCommand}"
+                       >
+                    <Button.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Button.FontFamily>
+                </Button>
+                <Label Text="Forgot Password?"
+                       HorizontalOptions="Center"
+                       TextColor="{StaticResource lightgrey2}"
+                      FontSize="13"
+                       Margin="0,8,0,0">
+                    <Label.FontFamily>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="iOS">HelveticaNeue</On>
+                            <On Platform="Android">HelveticaNeue.ttf#HelveticaNeue</On>
+                        </OnPlatform>
+                    </Label.FontFamily>
+                </Label>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

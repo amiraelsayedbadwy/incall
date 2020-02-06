@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1049516870896",
+    "firebase_url": "https://incalltask.firebaseio.com",
+    "project_id": "incalltask",
+    "storage_bucket": "incalltask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1049516870896:android:ab74aa791c5add41fec635",
+        "android_client_info": {
+          "package_name": "com.companyname.incalltask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1049516870896-iu53qdkasa8k2aptrpatlvqql9p9q1na.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsuZKmCD7ac0iJTvMmGTsmzncIZ_VUIqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1049516870896-iu53qdkasa8k2aptrpatlvqql9p9q1na.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
