@@ -28,6 +28,7 @@ namespace incalltask.ViewModels
         public readonly IServerDataService serverDataService;
         public readonly ILoginService loginService;
         public readonly IPortSIPEvents portSIPEvents;
+        public readonly IService service;
         public PortSipLib _portSipLibsdk;
         #endregion
         #region properties
@@ -42,9 +43,9 @@ namespace incalltask.ViewModels
    
         public ICommand ChooseLanguageCommand { get; set; }
         public ICommand LoginCommand { get; set; }
-        public LoginPageModel(IServerDataService _serverDataService,ILoginService login,IPortSIPEvents portSIP)
+        public LoginPageModel(IServerDataService _serverDataService,ILoginService login,IPortSIPEvents portSIP,IService _service)
         {
-          
+            service = _service;
             TransportList = new Dictionary<string, int>();
             serverDataService = _serverDataService;
             loginService = login;
@@ -71,7 +72,8 @@ namespace incalltask.ViewModels
                     {
                         #region save server data and register server
                         SaveUserData(serverDataResult.data);
-                        PortSdkData();
+                       // loadTabbedPage();
+                       PortSdkData();
                         #endregion
 
                         
@@ -115,12 +117,12 @@ namespace incalltask.ViewModels
             Settings.SRTPPolicy = serverData.srtp;
             Settings.DefaultTransport = serverData.default_transport;
             // make it list key wa value 
-            if (Settings.DefaultTransport.ToLower().Equals(TransportType.TCP.ToString()))
+            if (serverData.default_transport.ToLower().Equals(TransportType.TCP.ToString().ToLower()))
             {
                 Settings.SipServerPort = serverData.sip_transport.tcp;
                 Settings.SipServerType = TransportType.TCP.ToString();
             }
-            else if (Settings.DefaultTransport.ToLower().Equals(TransportType.UDP.ToString()))
+            else if (serverData.default_transport.ToLower().Equals(TransportType.UDP.ToString().ToLower()))
             {
                 Settings.SipServerPort = serverData.sip_transport.udp;
                 Settings.SipServerType = TransportType.UDP.ToString();
@@ -150,6 +152,7 @@ namespace incalltask.ViewModels
             if(result=="0")
             {
                 loadTabbedPage();
+               // service.Start();
             }
          
         }

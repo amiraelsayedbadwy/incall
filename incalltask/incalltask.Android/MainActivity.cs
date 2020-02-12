@@ -31,25 +31,16 @@ namespace incalltask.Droid
             Instance = this;
 
             FreshMvvm.FreshIOC.Container.Register<IPortSIPEvents, PortSipService>();
-            try
-            {
-               
-                IntentFilter filter = new IntentFilter();
-                filter.AddAction(PortSipService.REGISTER_CHANGE_ACTION);
-                filter.AddAction(PortSipService.CALL_CHANGE_ACTION);
-                filter.AddAction(PortSipService.PRESENCE_CHANGE_ACTION);
 
-                RegisterReceiver(new PortMessageReciver(), filter);
-
-                Intent onLineIntent = new Intent(this, typeof(PortSipService));
-              //  onLineIntent.SetAction(PortSipService.ACTION_SIP_REGIEST);
-                StartService(onLineIntent);
-            }
-            catch (Exception e)
-            {
-
-                throw;
-            }
+            FreshMvvm.FreshIOC.Container.Register<IService, PortSipService>();
+            IntentFilter filter = new IntentFilter();
+            filter.AddAction(PortSipService.REGISTER_CHANGE_ACTION);
+            filter.AddAction(PortSipService.CALL_CHANGE_ACTION);
+            filter.AddAction(PortSipService.PRESENCE_CHANGE_ACTION);
+           
+            RegisterReceiver(receiver, filter);
+            Intent onLineIntent = new Intent(this, typeof(PortSipService));
+            StartService(onLineIntent);
 
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);

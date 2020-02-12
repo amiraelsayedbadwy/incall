@@ -18,6 +18,8 @@ namespace incalltask.ViewModels
    public class MainHomePageModel:FreshMvvm.FreshBasePageModel
     {
         public readonly IPortSIPLib _portSipLibsdk;
+        public readonly IService _service;
+
         public readonly Interface.IPortSIPEvents portSIPEvents;
         //  public PortSipLib PortSipLi  b;
         public string Extension { get; set; }
@@ -34,14 +36,15 @@ namespace incalltask.ViewModels
         public ICommand CallCommand { get; set; }
         public ICommand OpenPopUpCommand { get; set; }
         public ICommand LogoutCommand { get; set; }
-        public MainHomePageModel(Interface.IPortSIPEvents _portSIPEvents)
+        public MainHomePageModel(Interface.IPortSIPEvents _portSIPEvents,IService service)
         {
-
+            _service = service;
             portSIPEvents = _portSIPEvents;
             LogoutCommand = new Command(LogoutCommandExcute);      
             OpenPopUpCommand = new Command(OpenPopUpCommandExcute);
             CallCommand = new Command(CallCommandExcute);
             NumPadCommand = new Command(NumPadCommandExcute);
+            _service.Start();
         }
 
         private void NumPadCommandExcute(object obj)
@@ -109,20 +112,16 @@ namespace incalltask.ViewModels
         private void CallCommandExcute(object obj)
         {
             CheckCall(CallTo);
-          sessionid = portSIPEvents.Call(CallTo, false, false);
-            
+          sessionid = portSIPEvents.Call(CallTo, false, true);
+
             if (sessionid <= 0)
             {
-              Console.WriteLine("Call failure, session null");
+                Console.WriteLine("Call failure, session null");
                 //SwitchPanel("DialCallFailure");
-                portSIPEvents.onInviteFailure(sessionid, "FAILED", 4,"wrong session id");
+                portSIPEvents.onInviteFailure(sessionid, "FAILED", 4, "wrong session id");
                 return;
             }
-            else
-            {
-                portSIPEvents.onInviteTrying(sessionid);
-                portSIPEvents.onInviteRinging(sessionid, "TRYING", 2, "ringing");
-            }
+
 
         }
         public string CheckCall(string callTo)
@@ -144,15 +143,7 @@ namespace incalltask.ViewModels
                 }
                
             }
-            if (UserStatus != "Online")
-            {
-                // here will show popup 
-                //PopupTitle.Text = "Alert";
-                //PopupMessage.Text = "You are offline";
-                //PopupLayout.Visibility = ViewStates.Visible;
-                //Toast.MakeText(activity, GetString(Resource.String.toast_entermobilenumber), ToastLength.Short).Show();
-                //return;
-            }
+            
             return callTo;
 
         }

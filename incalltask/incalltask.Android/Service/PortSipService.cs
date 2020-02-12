@@ -17,6 +17,7 @@ using PortSip.AndroidSample;
 using PortSIP;
 using IPortSIPEvents = incalltask.Interface.IPortSIPEvents;
 
+
 namespace incalltask.Droid.Service
 {
     [Service]
@@ -26,7 +27,7 @@ namespace incalltask.Droid.Service
     [IntentFilter(new string[] { ACTION_SIP_REGIEST })]
     [IntentFilter(new string[] { ACTION_SIP_UNREGIEST })]
     [IntentFilter(new string[] { ACTION_SIP_UNINITIALIZE })]
-    public class PortSipService : Android.App.Service,IPortSIPEvents
+    public class PortSipService : Android.App.Service, IPortSIPEvents, IService
     {
         #region for broad cast
         public const string ACTION_SIP_REGIEST = "com.companyname.incalltask.REGIEST";
@@ -58,8 +59,7 @@ namespace incalltask.Droid.Service
             
             mEngine = new PortSipLib(MainActivity.Instance);
             mEngine.SetPortSIPEventsCallback((PortSIP.IPortSIPEvents)sipevent);
-           // FirebaseInstanceId.Instance.GetInstanceId().AddOnCompleteListener(this);
-
+         
             Console.WriteLine("PortSipService: {0} ", "Create Service");
         }
 
@@ -97,7 +97,7 @@ namespace incalltask.Droid.Service
                 String description = session.LineName + " onInviteFailure";
                 broadIntent.PutExtra(EXTRA_CALL_DESCRIPTION, description);
 
-               // sendPortSipMessage(description, broadIntent);
+                sendPortSipMessage(description, broadIntent);
                 Console.WriteLine(description);
                 }
 
@@ -396,7 +396,7 @@ namespace incalltask.Droid.Service
             //Intent onLineIntent = new Intent(MainActivity.Instance, typeof(PortSipService));
             //onLineIntent.SetAction(PortSipService.REGISTER_CHANGE_ACTION);
             //  MainActivity.Instance.StartService(onLineIntent);
-            //sendPortSipMessage("onRegisterSuccess", broadIntent);
+            sendPortSipMessage("onRegisterSuccess", broadIntent);
           
             //publish presence status to online.
             mEngine.setPresenceStatus(0, "online");
@@ -485,24 +485,36 @@ namespace incalltask.Droid.Service
         public void onRecvOptions(string optionsMessage) { }
 
         public void onRecvInfo(string infoMessage) { }
-        #endregion
-        private TRANSPORT_TYPE GetTransType(string _transtype)
+        private TRANSPORT_TYPE GetTransType(int select)
         {
-            if(_transtype.ToUpper().Equals(TransportType.UDP))
+            switch (select)
             {
-                transType = PortSIP.TRANSPORT_TYPE.TRANSPORT_UDP;
+                case 0: return TRANSPORT_TYPE.TRANSPORT_UDP;
+                case 1: return TRANSPORT_TYPE.TRANSPORT_TLS;
+                case 2: return TRANSPORT_TYPE.TRANSPORT_TCP;
+                case 3: return TRANSPORT_TYPE.TRANSPORT_PERS_UDP;
+                case 4: return TRANSPORT_TYPE.TRANSPORT_PERS_TCP;
             }
-           
-            else if (_transtype.ToUpper().Equals(TransportType.TLS))
-            {
-                transType = PortSIP.TRANSPORT_TYPE.TRANSPORT_TLS;
-            }
-            else if (_transtype.ToUpper().Equals(TransportType.TCP))
-            {
-                transType = PortSIP.TRANSPORT_TYPE.TRANSPORT_TCP;
-            }
-            return transType;
+            return TRANSPORT_TYPE.TRANSPORT_UDP;
         }
+        #endregion
+        //private TRANSPORT_TYPE GetTransType(string _transtype)
+        //{
+        //    if (_transtype.ToUpper().Equals(TransportType.UDP))
+        //    {
+        //        return TRANSPORT_TYPE.TRANSPORT_UDP;
+        //    }
+
+        //    else if (_transtype.ToUpper().Equals(TransportType.TLS))
+        //    {
+        //      return  TRANSPORT_TYPE.TRANSPORT_TLS;
+        //    }
+        //    else if (_transtype.ToUpper().Equals(TransportType.TCP))
+        //    {
+        //        return TRANSPORT_TYPE.TRANSPORT_TCP;
+        //    }
+        //    return TRANSPORT_TYPE.TRANSPORT_UDP;
+        //}
         String getInstanceID()
         {
       
@@ -548,7 +560,7 @@ namespace incalltask.Droid.Service
 
             Random rm = new Random();
             int localport = rm.Next(5060, 65535);
-            result = mEngine.initialize(GetTransType(siptype), "0.0.0.0", localport,
+            result = mEngine.initialize(GetTransType(2), "0.0.0.0", localport,
 
                 PORTSIP_LOG_LEVEL.PORTSIP_LOG_DEBUG, dataPath,
                 8, "InnoCalls Softphone Beta", 0, 0, dataPath, "", false);
@@ -566,7 +578,7 @@ namespace incalltask.Droid.Service
             string registerTips= "";
             int result = -1;
             #region  setlicencekey
-            result = mEngine.setLicenseKey("PORTSIP_TEST_LICENSE");
+            result = mEngine.setLicenseKey("1AND0R0yQjM4OTcwRTYzOEM1ODk1QzRFQTEzMEM3QjlBQjdGMkBBOEVDQzA1ODAzRjJCMjc3OEYyQTlEMkNDNEMyRUNDMEA5NzFGOEY4NjQxMTc0QjA1REU2OTFBQTlBMEZCN0M5OUA4NzczOUVDODI0NTlGOEE0NTkxQUYzNUYxNzI2RTIxRQ");
             if (result == 0)
             {
                 Console.WriteLine("This Official version SDK .");
@@ -605,7 +617,7 @@ namespace incalltask.Droid.Service
                 return registerTips;
             }
             result = mEngine.setUser(username, displayname, authname, password,
-               userdomain, sipserver, 5060, stunserver,3478, null, 0);
+               userdomain, sipserver, serverport, stunserver,3478, null, 0);
             if(result==0)
             {
                 registerTips = "0";
@@ -658,12 +670,45 @@ namespace incalltask.Droid.Service
             mEngine.setSrtpPolicy(GetSRTPPolicy(srtptype));
             //Set Presence Agent Mode
             mEngine.setPresenceMode(1);
+            
+       
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_G722);
+            
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_PCMA);
+            
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_PCMU);
+              
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_G729);
+         
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_GSM);
+          
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_ILBC);
+           
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_AMR);
+            
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_AMRWB);
 
-            mEngine.addAudioCodec(PortSIP.AUDIOCODEC_TYPE.AUDIOCODEC_PCMA);
-            mEngine.addAudioCodec(PortSIP.AUDIOCODEC_TYPE.AUDIOCODEC_PCMU);
-            mEngine.addAudioCodec(PortSIP.AUDIOCODEC_TYPE.AUDIOCODEC_G729);
-            mEngine.addVideoCodec(PortSIP.VIDEOCODEC_TYPE.VIDEO_CODEC_H264);
-
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_SPEEX);
+            
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_SPEEXWB);
+             
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_ISACWB);
+            
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_ISACSWB);
+            
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_G7221);
+            
+              mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_OPUS);
+          
+            mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_PCMA);
+            mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_PCMU);
+            mEngine.addAudioCodec(AUDIOCODEC_TYPE.AUDIOCODEC_G729);
+            mEngine.addVideoCodec(VIDEOCODEC_TYPE.VIDEO_CODEC_H264);
+            mEngine.enableAEC(true);
+            mEngine.enableAGC(true);
+            mEngine.enableCNG(true);
+            mEngine.enableVAD(true);
+            mEngine.enableANS(false);
             mEngine.setVideoBitrate(-1, 300);
             mEngine.setVideoFrameRate(-1, 10);
             mEngine.setVideoResolution(352, 288);
@@ -748,17 +793,15 @@ namespace incalltask.Droid.Service
             session.Remote = caller;
             session.DisplayName = a;
 
-
-            if (session.LineName == "line - 0")
-            {
-                
-                Ring.getInstance(MainActivity.Instance).startRingTone();
-            }
-
-
-           
-
             String description = session.LineName + " onInviteIncoming";
+            Intent broadIntent = new Intent(CALL_CHANGE_ACTION);
+            broadIntent.PutExtra(EXTRA_CALL_SEESIONID, sessionId);
+            broadIntent.PutExtra(EXTRA_CALL_DESCRIPTION, description);
+
+            sendPortSipMessage(description, broadIntent);
+            Ring.getInstance(MainActivity.Instance).startRingTone();
+   
+           
             Console.WriteLine(description);
 
 
@@ -771,9 +814,43 @@ namespace incalltask.Droid.Service
         public override StartCommandResult OnStartCommand(Intent intent, StartCommandFlags flags, int startId)
         {
             Console.WriteLine("PortSipService: {0} ", "Start Service");
-          
+            if (intent != null)
+            {
+                if (ACTION_PUSH_MESSAGE.Equals(intent.Action) && !CallManager.Instance.regist)
+                {
+                    registerToServer();
+                }
+                else if (ACTION_SIP_REGIEST.Equals(intent.Action) && !CallManager.Instance.regist)
+                {
+                    registerToServer();
+                }
+                else if (ACTION_SIP_UNREGIEST.Equals(intent.Action) && CallManager.Instance.regist)
+                {
+                    UnRegisterServer();
+                }
+                else if (ACTION_PUSH_TOKEN.Equals(intent.Action))
+                {
+                    PushToken = intent.GetStringExtra(EXTRA_PUSHTOKEN);
+
+                    if (CallManager.Instance.regist)
+                    {
+                        setPushHeader(NeedPush);
+                    }
+
+                    //to do. token changed，in order to receive push message. if not online ,according to your strategy，maybe you need to regist .
+                }
+            }
             return StartCommandResult.Sticky;
         }
+
+        private void registerToServer()
+        {
+            IntiliaztePortSdk("TCP");
+            LicenceKey();
+            SetUserData("7481122", "", "", "rB9*E6CcC-dOQ2N*", "", "142.93.121.73",5060, "",3478);
+            RegisterToServer("NONE");
+        }
+
         public void sendPortSipMessage(String message, Intent broadIntent)
         {
             try
@@ -806,6 +883,12 @@ namespace incalltask.Droid.Service
                 mEngine.addSipMessageHeader(-1, "REGISTER", 1, "x-p-push", pushMessage);
             }
 
+        }
+        public void Start()
+        {
+            Intent onLineIntent = new Intent(MainActivity.Instance, typeof(PortSipService));
+            onLineIntent.SetAction(PortSipService.ACTION_SIP_REGIEST);
+            MainActivity.Instance.StartService(onLineIntent);
         }
     }
 }

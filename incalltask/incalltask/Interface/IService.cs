@@ -4,8 +4,8 @@ using System.Text;
 
 namespace incalltask.Interface
 {
-   public interface IBroadCast
+   public interface IService
     {
-        //void BroadCastStart();
+        void Start();
     }
 }

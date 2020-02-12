@@ -88,10 +88,10 @@
 
   <ItemGroup>
     <Reference Include="PortSip">
-      <HintPath>..\..\..\..\source\repos\non-generic-portsip\XamarinSample_mobile\PortSip.Android\bin\Debug\PortSip.dll</HintPath>
+      <HintPath>..\..\..\sdk\SDK\PortSip.Android\bin\Debug\PortSip.dll</HintPath>
     </Reference>
     <Reference Include="PortSip.Android">
-      <HintPath>..\..\..\..\source\repos\non-generic-portsip\XamarinSample_mobile\PortSip.Android\bin\Debug\PortSip.Android.dll</HintPath>
+      <HintPath>..\..\..\sdk\SDK\PortSip.Android\bin\Debug\PortSip.Android.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

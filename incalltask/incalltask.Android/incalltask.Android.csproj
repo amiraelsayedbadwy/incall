@@ -33,6 +33,8 @@
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
     <MandroidI18n />
+    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,10 +49,10 @@
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="PortSip">
-      <HintPath>..\..\..\..\source\repos\non-generic-portsip\XamarinSample_mobile\PortSip.Android\bin\Debug\PortSip.dll</HintPath>
+      <HintPath>..\..\..\sdk\SDK\PortSip.Android\bin\Debug\PortSip.dll</HintPath>
     </Reference>
     <Reference Include="PortSip.Android">
-      <HintPath>..\..\..\..\source\repos\non-generic-portsip\XamarinSample_mobile\PortSip.Android\bin\Debug\PortSip.Android.dll</HintPath>
+      <HintPath>..\..\..\sdk\SDK\PortSip.Android\bin\Debug\PortSip.Android.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
